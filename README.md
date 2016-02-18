@@ -1,7 +1,7 @@
 # sqpz
 own folder
 
-this is a new readme.
+this is a new readme. add this line
 
 edit a new line
 
