@@ -1,0 +1,26 @@
+Sample.js:
+
+/**
+ * Sample transaction processor function.
+ * @param {org.example.basic.TradeMoney} tx The sample transaction instance.
+ * @transaction
+ */
+async function tradeMoney(tx) {  // eslint-disable-line no-unused-vars
+
+    const registry = await getParticipantRegistry('org.example.basic.SampleParticipant');
+    
+    tx.ParticipantFrom.money = tx.ParticipantFrom.money - tx.value;
+    tx.ParticipantTo.money = tx.ParticipantTo.money + tx.value;
+
+    await registry.updateAll([tx.ParticipantFrom, tx.ParticipantTo]);
+    //await registry.updateall(tx.ParticipantFrom);
+}
+
+Sample.cto
+
+transaction TradeMoney {
+  --> SampleParticipant ParticipantFrom
+  --> SampleParticipant ParticipantTo
+  o Integer value
+}
+
