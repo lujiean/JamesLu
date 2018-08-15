@@ -78,14 +78,24 @@ async function tradeMoney(tx) {  // eslint-disable-line no-unused-vars
     const assestRegistry = await getAssetRegistry('org.example.basic.Wallet');
     
     const assestFrom = await query('selectWalletByOwner', {owner : 'resource:' + tx.ParticipantFrom.getFullyQualifiedIdentifier()});
+  
+    assestFrom.forEach(async trade => {
+        trade.money = trade.money - tx.value;
+      	await assestRegistry.update(trade);
+    });
+  
     const assestTo = await query('selectWalletByOwner', {owner : 'resource:' + tx.ParticipantTo.getFullyQualifiedIdentifier()});
   
+    assestTo.forEach(async trade => {
+        trade.money = trade.money + tx.value;
+        await assestRegistry.update(trade);
+    });
     //tx.ParticipantFrom.money = tx.ParticipantFrom.money - tx.value;
     //tx.ParticipantTo.money = tx.ParticipantTo.money + tx.value;
   
-    assestFrom.money = assestFrom.money - tx.value;
-    assestTo.money = assestTo.money + tx.value;
+    //assestFrom.money = assestFrom.money - tx.value;
+    //assestTo.money = assestTo.money + tx.value;
 
-    await assestRegistry.updateAll([assestFrom, assestTo]);
+    //await assestRegistry.updateAll([assestFrom, assestTo]);
     //await registry.updateall(tx.ParticipantFrom);
 }
