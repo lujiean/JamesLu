@@ -1,0 +1,10 @@
+/**
+ * New query file
+ */
+
+query selectWalletByOwner {
+  description: "Select all wallet based on their owner"
+  statement:
+      SELECT org.example.basic.Wallet
+          WHERE (owner == _$owner)
+}
