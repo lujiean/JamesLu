@@ -49,6 +49,14 @@ async function addParticipant(tx) {  // eslint-disable-line no-unused-vars
  */
 async function delParticipant(tx) {  // eslint-disable-line no-unused-vars
 
+  	//remove Wallet
+    const assestRegistry = await getAssetRegistry('org.example.basic.Wallet');
+  	const delWallets = await query('selectWalletByOwner', {owner : 'resource:' + tx.SampleParticipant.getFullyQualifiedIdentifier()});
+    delWallets.forEach(async trade => {
+      	await assestRegistry.remove(trade);
+    });
+  
+    //remove Participants
     const registry = await getParticipantRegistry('org.example.basic.SampleParticipant');
     await registry.remove(tx.SampleParticipant);
 }
