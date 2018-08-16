@@ -17,17 +17,17 @@
  */
 rule EverybodyCanReadEverything {
     description: "Allow all participants read access to all resources"
-    participant: "org.example.basic.SampleParticipant"
+    participant: "org.acn.bank.Client"
     operation: READ
-    resource: "org.example.basic.*"
+    resource: "org.acn.bank.*"
     action: ALLOW
 }
 
 rule OwnerHasFullAccessToTheirAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "org.example.basic.SampleParticipant"
+    participant(p): "org.acn.bank.Client"
     operation: ALL
-    resource(r): "org.example.basic.Wallet"
+    resource(r): "org.acn.bank.Wallet"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
