@@ -2,9 +2,21 @@
  * New query file
  */
 
-query selectWalletByOwner {
+/*query selectWalletByOwner {
   description: "Select all wallet based on their owner"
   statement:
-      SELECT org.example.basic.Wallet
+      SELECT org.acn.bank.Wallet
           WHERE (owner == _$owner)
+}*/
+
+query selectAllClient {
+  description: "Select all client"
+  statement:
+      SELECT org.acn.bank.Client
+}
+
+query selectAllWallet {
+  description: "Select all wallet"
+  statement:
+      SELECT org.acn.bank.Wallet
 }
